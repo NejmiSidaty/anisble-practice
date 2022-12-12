@@ -1,0 +1,11 @@
+---
+- name: copy public key from controller node to remote nodes 
+  hosts: temp
+  tasks:
+    - name: add the public key to authorized_keys using Ansible module 
+      authorized_key:
+        user: '{{ansible_user}}' 
+        state: present 
+        key: '{{ item }}'
+      with_file:
+        - ~/.ssh/id_rsa.pub
