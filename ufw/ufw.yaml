@@ -1,0 +1,19 @@
+---
+- name: ufw allowing ssh , http , https
+  hosts: ufw
+  become: true
+  tasks:
+    - name: ufw enabled
+      ufw:
+        state: enabled
+        policy: deny
+        logging: on
+    - name: ufw rules
+      ufw:
+        rule: allow
+        port: "{{item}}"
+        proto: tcp
+      with_items:
+        - "22"
+        - "80"
+        - "443"
