@@ -1,2 +1,5 @@
 # removing inventory files 
 inventory*
+
+# removing buffer 
+buffer*
