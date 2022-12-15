@@ -6,7 +6,7 @@
   - name: install updates (Ubuntu)
     tags: always
     apt:
-      upgrade: dist
+  #   upgrade: dist
       update_cache: yes
 
 
@@ -17,21 +17,23 @@
   - name: create ansible user
     tags: always
     user:
-      name: ansible
+      name: ansible_user
       groups: root
+      shell: /bin/bash
+      append: yes
 
   - name: add ssh key for ansible user
     tags: always
     authorized_key:
-      user: ansible
+      user: ansible_user
       key: "{{ item }}"
     with_file:
         - "{{ key_file  }}"    
   - name: add sudoers file for ansible user
     tags: always
     copy:
-      src: sudoer_ansible
-      dest: /etc/sudoers.d/ansible
+      src: sudoer_ansible_user
+      dest: /etc/sudoers.d/ansible_user
       owner: root
       group: root
       mode: 0440
